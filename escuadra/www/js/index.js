@@ -27,20 +27,82 @@ var app = {
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
+        console.log('device is ready')
         this.receivedEvent('deviceready');
     },
 
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+        byId('feet1').value = 0;
+        byId('inches1').value = 0;
+        byId('feet2').value = 0;
+        byId('inches2').value = 0;
+        console.log('initialized events');
+        byId('calculate').onclick = this.calculate;
+    },
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+    calculate: function() {
+        console.log('calculating now');
+        var side1 = side(1);
+        var side2 = side(2);
+        console.log('side 1: ' + side1 + ' | side2: ' + side2);
+        var result = pythagorem(side1, side2);
+        console.log('hypotenouse: ' + result);
+        var friendlyResult = toFeetAndInches(result);
+        console.log('friendly: ' + friendlyResult);
+        byId('outputFeet').innerHTML = friendlyResult.feet;
+        byId('outputInches').innerHTML = friendlyResult.inches;
+    },
 
-        console.log('Received Event: ' + id);
-    }
+    
+
+
 };
 
 app.initialize();
+
+function byId(id) {
+    return document.getElementById(id);
+}
+
+function side(sideLabel) {
+    var feet = Number(byId('feet' + sideLabel).value);
+    var inches = Number(byId('inches' + sideLabel).value);
+    console.log('got ' + feet + ' feet and ' + inches + ' inches');
+    inches = inches / 12;
+    var result = feet + inches;
+    console.log('calculated to: ' + result);
+    return result;
+}
+
+function pythagorem(side1, side2) {
+    return Math.sqrt(side1 * side1 + side2 * side2)
+}
+
+function toFeetAndInches(value) {
+    var feet = Math.trunc(value);
+    var decimalInches = value - feet;
+    var inches = toInches(decimalInches);
+    return {
+        feet: feet,
+        inches: inches
+    }
+}
+
+function toInches(decimal) {
+    // gives me something like 8.73123123123
+    var inchesWithDecimals = decimal * 12;
+
+    var inches = Math.trunc(inchesWithDecimals);
+    var partialInchesInDecimals = inchesWithDecimals - inches;
+    var quarters = Math.round(toQuartersOfAnInch(partialInchesInDecimals));
+    var result = inches;
+    if (quarters > 0) {
+        result += ' - ' + quarters +'/4';
+    }
+    return result;
+}
+
+function toQuartersOfAnInch(partialInchesInDecimals) {
+    return partialInchesInDecimals * 4;
+}

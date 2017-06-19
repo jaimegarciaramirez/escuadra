@@ -25,47 +25,21 @@ body {
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
     background-color:#E4E4E4;
-    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4)
-    );
-    background-attachment:fixed;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size:12px;
     height:100%;
     margin:0px;
-    padding:0px;
-    text-transform:uppercase;
+    padding:10px;
     width:100%;
+    box-sizing: border-box;
 }
 
-/* Portrait layout (default) */
 .app {
-    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
-    position:absolute;             /* position in the center of the screen */
-    left:50%;
-    top:50%;
-    height:50px;                   /* text area height */
-    width:225px;                   /* text area width */
-    text-align:center;
-    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
-    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
-                                   /* offset horizontal: half of text area width */
 }
 
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
     .app {
-        background-position:left center;
-        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
-        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
-                                      /* offset horizontal: half of image width and text area width */
     }
 }
 
@@ -97,19 +71,61 @@ h1 {
     display:none;
 }
 
-@keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+.measurement-input label,
+.measurement-input input {
+    font-size: 16pt;
 }
- 
-@-webkit-keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+
+.measurement-input input {
+    width: 4em;
+    font-size: 20pt;
+    margin-left: 1em;
+    display: block;
 }
- 
-.blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
+.measurement-input div {
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    float: left;
+}
+
+.measurement-input:after,
+.output:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#output div{
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: 49%;
+    float: left;
+    font-weight: normal;
+}
+
+h4 {
+    text-align: left;
+    margin-bottom: 0px;
+}
+.action {
+    display: block;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #369;
+    color: white;
+    font-size: 16pt; 
+    padding: 10px;
+    text-shadow: 1px 1px 1px #000;
+}
+
+#output {
+    font-size: 18pt;
+    font-weight: bold;
+    text-align: center;
 }

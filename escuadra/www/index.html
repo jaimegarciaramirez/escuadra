@@ -38,9 +38,38 @@
     <body>
         <div class="app">
             <h1>Escuadra</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+            <div class="measurement-input">
+                <h2>Lado 1</h2>
+                <div>
+                    <label for="feet1">Pies: </label><input id="feet1" type="number" />
+                </div>
+                <div>
+                    <label for="inches1">Pulgadas: </label><input id="inches1" type="number" />
+                </div>
+            </div>
+            <div class="measurement-input">
+                <h2>Lado 2</h2>
+                <div>
+                    <label for="feet2">Pies: </label><input id="feet2" type="number" />
+                </div>
+                <div>
+                    <label for="inches2">Pulgadas: </label><input id="inches2" type="number" />
+                </div>
+            </div>
+            <div>
+                <button id="calculate" class="primary action">Calcular</button>
+            </div>
+            <div id="output">
+                <div>
+                    <h4>Pies</h4>
+                    <div id="outputFeet">
+                    </div>
+                </div>
+                <div>
+                    <h4>Pulgadas</h4>
+                    <div id="outputInches">
+                    </div>
+                </div>
             </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
