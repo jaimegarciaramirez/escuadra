@@ -33,12 +33,17 @@ var app = {
 
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        byId('feet1').value = 0;
-        byId('inches1').value = 0;
-        byId('feet2').value = 0;
-        byId('inches2').value = 0;
+        this.reset()
         console.log('initialized events');
         byId('calculate').onclick = this.calculate;
+    },
+
+    reset: function() {
+        byId('feet1').value = '';
+        byId('inches1').value = '';
+        byId('feet2').value = '';
+        byId('inches2').value = '';
+        byId('feet1').focus();
     },
 
     calculate: function() {
@@ -52,11 +57,8 @@ var app = {
         console.log('friendly: ' + friendlyResult);
         byId('outputFeet').innerHTML = friendlyResult.feet;
         byId('outputInches').innerHTML = friendlyResult.inches;
+        byId('exact').innerHTML = friendlyResult.exact;
     },
-
-    
-
-
 };
 
 app.initialize();
@@ -66,8 +68,18 @@ function byId(id) {
 }
 
 function side(sideLabel) {
-    var feet = Number(byId('feet' + sideLabel).value);
-    var inches = Number(byId('inches' + sideLabel).value);
+    var rawFeet = "" + byId('feet' + sideLabel).value;
+    var rawInches = "" + byId('inches' + sideLabel).value;
+    var feet = Number(rawFeet);
+    var inches = Number(rawInches);
+    if (rawFeet.length == 0) {
+        byId('feet' + sideLabel).value = 0
+        feet = 0;
+    }
+    if (rawInches.length == 0) {
+        byId('inches' + sideLabel).value = 0
+        inches = 0;
+    }
     console.log('got ' + feet + ' feet and ' + inches + ' inches');
     inches = inches / 12;
     var result = feet + inches;
@@ -83,9 +95,14 @@ function toFeetAndInches(value) {
     var feet = Math.trunc(value);
     var decimalInches = value - feet;
     var inches = toInches(decimalInches);
+    if (inches == 12) {
+        feet++;
+        inches = 0
+    }
     return {
         feet: feet,
-        inches: inches
+        inches: inches,
+        exact: value.toFixed(4) 
     }
 }
 
@@ -97,8 +114,10 @@ function toInches(decimal) {
     var partialInchesInDecimals = inchesWithDecimals - inches;
     var quarters = Math.round(toQuartersOfAnInch(partialInchesInDecimals));
     var result = inches;
-    if (quarters > 0) {
+    if (quarters > 0 && quarters < 4) {
         result += ' - ' + quarters +'/4';
+    } else if (quarters > 0 && quarters == 4) {
+        result = inches + 1;
     }
     return result;
 }

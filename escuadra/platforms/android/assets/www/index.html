@@ -36,30 +36,35 @@
         <title>Escuadra</title>
     </head>
     <body>
-        <div class="app">
+        <div class="header">
+            <img src="img/icon.png" class="logo" />
             <h1>Escuadra</h1>
+            <div style="clear:both;"></div>
+        </div>
+        <div class="app">
             <div class="measurement-input">
                 <h2>Lado 1</h2>
                 <div>
-                    <label for="feet1">Pies: </label><input id="feet1" type="number" />
+                    <label for="feet1">Pies: </label><input id="feet1" pattern="[0-9]*" type="number" />
                 </div>
                 <div>
-                    <label for="inches1">Pulgadas: </label><input id="inches1" type="number" />
+                    <label for="inches1">Pulgadas: </label><input id="inches1" pattern="[0-9]*" type="number" />
                 </div>
             </div>
             <div class="measurement-input">
                 <h2>Lado 2</h2>
                 <div>
-                    <label for="feet2">Pies: </label><input id="feet2" type="number" />
+                    <label for="feet2">Pies: </label><input id="feet2" pattern="[0-9]*" type="number" />
                 </div>
                 <div>
-                    <label for="inches2">Pulgadas: </label><input id="inches2" type="number" />
+                    <label for="inches2">Pulgadas: </label><input id="inches2" pattern="[0-9]*" type="number" />
                 </div>
             </div>
             <div>
                 <button id="calculate" class="primary action">Calcular</button>
             </div>
             <div id="output">
+                <hr />
                 <div>
                     <h4>Pies</h4>
                     <div id="outputFeet">
@@ -71,7 +76,9 @@
                     </div>
                 </div>
             </div>
+            <div style="clear:both;"></div>
         </div>
+        <p class="exact-calculation">Calculo exacto: <span id="exact"></span></p>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
